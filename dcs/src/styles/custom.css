@@ -1,0 +1,27 @@
+body {
+  padding-top: 52px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    background: #3abc8b;
+}
+input[type=range]::-moz-range-thumb {
+    background: #3abc8b;
+}
+input[type=range]::-ms-thumb {
+    background: #3abc8b;
+}
+
+@media screen and (min-width: 590px) {
+  .card-image {
+    width: 535px;
+    height: 229px;
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .card-image {
+    width: 268px;
+    height: 115px;
+  }
+}
