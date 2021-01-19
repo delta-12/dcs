@@ -1,5 +1,6 @@
 body {
   padding-top: 52px;
+  margin-bottom: 152px;
 }
 
 input[type=range]::-webkit-slider-thumb {
