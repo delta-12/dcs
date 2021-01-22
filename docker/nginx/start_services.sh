@@ -4,4 +4,7 @@ fi
 
 nginx -t
 service nginx start
+echo "* * * * * /usr/bin/certbot renew && service nginx restart" >> certbot.renewal
+crontab certbot.renewal
+service cron start
 tail -F /var/log/nginx/error.log > /dev/null
