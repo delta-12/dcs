@@ -1,6 +1,7 @@
 import React from "react"
 import Card from "./Card"
 import Charts from "./Charts"
+import TableRow from "./TableRow"
 
 class Cards extends React.Component {
 
@@ -39,12 +40,8 @@ class Cards extends React.Component {
         }
         <table className="table table-hover">
           <tbody>
-            <tr>
-              <th scope="row">Seed</th>
-              <td></td>
-              <td></td>
-              <td>{this.props.data.seed}</td>
-            </tr>
+            <TableRow title="Seed" data={this.props.data.seed} />
+            <TableRow title="Visibility" data={(this.props.data.public) ? "Public" : "Private"} />
           </tbody>
         </table>
       </div>
