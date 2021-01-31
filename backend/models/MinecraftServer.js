@@ -35,6 +35,15 @@ const MinecraftServerSchema = new Schema({
   },
   version: {
     type: String
+  },
+  container_id: {
+    type: String
+  },
+  public: {
+    type: Boolean
+  },
+  owner: {
+    type: String
   }
 });
 
