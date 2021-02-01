@@ -4,7 +4,9 @@ const Schema = mongoose.Schema;
 // Create Schema
 const MinecraftServerSchema = new Schema({
   name: {
-    type: String
+    type: String,
+    required: true,
+    unique: true
   },
   status: {
     type: String
@@ -37,13 +39,15 @@ const MinecraftServerSchema = new Schema({
     type: String
   },
   container_id: {
-    type: String
+    type: String,
+    required: true
   },
   public: {
     type: Boolean
   },
   owner: {
-    type: String
+    type: String,
+    required: true
   }
 });
 
