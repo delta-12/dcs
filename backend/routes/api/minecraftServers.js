@@ -16,7 +16,7 @@ router.post("/info", (req, res) => {
     }
     else {
       // need to use cursor if number of servers grows VERY large
-      MinecraftServer.find({}).then(serverList => {
+      MinecraftServer.find({ $or:[ {"owner":req.body.id}, {"public": true} ] }).then(serverList => {
         if (serverList) {
           return res.status(200).json({ success: true, data: serverList })
         }
