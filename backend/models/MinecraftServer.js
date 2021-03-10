@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
 // Create Schema
 const MinecraftServerSchema = new Schema({
@@ -49,6 +49,6 @@ const MinecraftServerSchema = new Schema({
     type: String,
     required: true
   }
-});
+})
 
-module.exports = MinecraftServer = mongoose.model("minecraft_servers", MinecraftServerSchema);
+module.exports = MinecraftServer = mongoose.model("minecraft_servers", MinecraftServerSchema)  // switch to  test_minecraft_servers for testing

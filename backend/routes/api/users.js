@@ -1,71 +1,71 @@
-const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
+const express = require("express")
+const router = express.Router()
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const keys = require("../../config/keys")
 
 // Load input validation
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
+const validateRegisterInput = require("../../validation/register")
+const validateLoginInput = require("../../validation/login")
 
 // Load User model
-const User = require("../../models/User");
+const User = require("../../models/User")
 
 // @route POST api/users/register
 // @desc Register user
 // @access Public
 router.post("/register", (req, res) => {
   // Form validation
-  const { errors, isValid } = validateRegisterInput(req.body);
+  const { errors, isValid } = validateRegisterInput(req.body)
   // Check validation
   if (!isValid) {
-    return res.status(400).json(errors);
+    return res.status(400).json(errors)
   }
   User.findOne({ username: req.body.username }).then(user => {
     if (user) {
-      return res.status(400).json({ username: "Username already exists" });
+      return res.status(400).json({ username: "Username already exists" })
     }
     else {
       const newUser = new User({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
-      });
+      })
       // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
+          if (err) throw err
+          newUser.password = hash
           newUser
             .save()
             .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
-      });
+            .catch(err => console.log(err))
+        })
+      })
     }
-  });
-});
+  })
+})
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
 router.post("/login", (req, res) => {
   // Form validation
-  const { errors, isValid } = validateLoginInput(req.body);
+  const { errors, isValid } = validateLoginInput(req.body)
 
   // Check validation
   if (!isValid) {
-    return res.status(400).json(errors);
+    return res.status(400).json(errors)
   }
-  const username = req.body.username;
-  const password = req.body.password;
+  const username = req.body.username
+  const password = req.body.password
 
   // Find user by username
   User.findOne({ username }).then(user => {
 
     // Check if user exists
     if (!user) {
-      return res.status(404).json({ usernamenotfound: "Incorrect Username or Password" });
+      return res.status(404).json({ usernamenotfound: "Incorrect Username or Password" })
     }
 
     // Check password
@@ -76,7 +76,7 @@ router.post("/login", (req, res) => {
         const payload = {
           id: user.id,
           username: user.username
-        };
+        }
         // Sign token
         jwt.sign(
           payload,
@@ -88,16 +88,16 @@ router.post("/login", (req, res) => {
             res.json({
               success: true,
               token: "Bearer " + token
-            });
+            })
           }
-        );
+        )
       } else {
         return res
           .status(400)
-          .json({ passwordincorrect: "Incorrect Username or Password" });
+          .json({ passwordincorrect: "Incorrect Username or Password" })
       }
-    });
-  });
-});
+    })
+  })
+})
 
-module.exports = router;
+module.exports = router

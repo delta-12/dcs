@@ -9,7 +9,7 @@ const MinecraftServer = require("../../models/MinecraftServer")
 const MCHost = require("../../models/MCHost")
 
 // Load input validation
-const validateAddServerInput = require("../../validation/addServer");
+const validateAddServerInput = require("../../validation/addServer")
 
 // @route POST api/MinecraftServer/info
 // @desc get MinecraftServer info
@@ -59,10 +59,10 @@ router.post("/createServer", (req, res) => {
     }
     else {
       // Form validation
-      const { errors, isValid } = validateAddServerInput(req.body);
+      const { errors, isValid } = validateAddServerInput(req.body)
       // Check validation
       if (!isValid) {
-        return res.status(400).json(errors);
+        return res.status(400).json(errors)
       }
       MinecraftServer.findOne({ name: req.body.name }).then(server => {
         if (server) {
