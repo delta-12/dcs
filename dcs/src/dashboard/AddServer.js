@@ -21,7 +21,7 @@ constructor() {
       software: "Java",
       version: "16.5",
       public: true,
-      data: null,
+      data: {},
       hosts: null,
       errors: {}
     }
@@ -34,7 +34,6 @@ constructor() {
         this.setState({
           hosts: res.data.hosts
         })
-        console.log(res.data)
       })
       .catch(err =>
         this.setState({
@@ -70,15 +69,13 @@ constructor() {
       version: this.state.version,
       public: this.state.public
     }
-    console.log(newServer)
     trackPromise(
       axios
         .post("/api/minecraftServers/createServer", newServer)
         .then(res => {
           this.setState({
-            data: res.data.data
+            data: res.data
           })
-          console.log(res.data)
         })
         .catch(err =>
           this.setState({
@@ -90,7 +87,7 @@ constructor() {
 
   render() {
     const {errors} = this.state
-    console.log(errors)
+    const {data} = this.state
     let hosts
     (this.state.hosts !== null) ? hosts = this.state.hosts.map((host) => <option key={host._id} value={host.address}>{host.address}</option>) : hosts = ""
     return(
@@ -99,10 +96,13 @@ constructor() {
           <h3>Add New Minecraft Server</h3>
         </div>
         <LoadingIndicator />
-        { 
-          (errors.success !== undefined) ? 
-            (errors.success) ? <AddServerResponse color="green" text={this.state.data} /> : <AddServerResponse color="red" text={errors.error} /> :
-            null
+        {
+          (data !== undefined) ?
+            (data.success !== undefined) ?
+              (data.success) ? <AddServerResponse color="mediumseagreen" text={data.response.status} /> :
+                (errors.error !== undefined) ? <AddServerResponse color="red" text={errors.error} /> : null :
+              (errors.error !== undefined) ? <AddServerResponse color="red" text={errors.error} /> : null :
+            (errors.error !== undefined) ? <AddServerResponse color="red" text={errors.error} /> : null
         }
         <form onSubmit={this.onSubmit}>
           <table className="table table-hover">

@@ -9,7 +9,11 @@ module.exports = function validateRegisterInput(data) {
 
   // name checks
   if (Validator.isEmpty(data.name)) {
-    errors.name = "Name field is required"
+    errors.name = "Name field is required."
+  }
+  // name can only contain letters and numbers
+  if (!Validator.isAlphanumeric(data.name)) {
+    errors.name = "Name can only contain letters and numbers."
   }
 
   return {

@@ -11,6 +11,7 @@ export default class AddServerResponse extends React.Component {
       verticalAlign: "middle",
       paddingTop: 10,
       paddingLeft: 10,
+      marginBottom: 16,
       borderRadius: 5,
       backgroundColor: this.props.color
     }

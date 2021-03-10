@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const axios = require("axios")
+const querystring = require("querystring")
 
 // Load User and MinecraftServer model
 const User = require("../../models/User")
@@ -69,7 +70,8 @@ router.post("/createServer", (req, res) => {
         }
         else {
           const newServer = {
-            address: req.body.address,
+            user_id: req.body.id,
+            // address: req.body.address,
             name: req.body.name,
             gamemode: req.body.gamemode,
             difficulty: req.body.difficulty,
@@ -79,12 +81,12 @@ router.post("/createServer", (req, res) => {
             public: req.body.public
           }
           axios
-            .post("https://" + req.body.address + "/create_server", newServer, { timeout: 60000 })  // create stream to monitor progress of server creation?
-            .then(response => {  // necessary to return response?
-              return res.status(201).json({ success: true, response: response })
+            .post("http://" + req.body.address + "/create_server", querystring.stringify(newServer), { timeout: 60000 })  // create stream to monitor progress of server creation?
+            .then(response => {
+              return res.status(201).json({ success: true, response: response.data })
             })
             .catch(err => {
-              console.log(err)
+              console.log(err)  // remove in final production code? 
               if (err.code === "ECONNABORTED") {
                 return res.status(503).json({ success: false, error: "Hosting provider is unavailable.  Try a different hosting provider."})
               }
