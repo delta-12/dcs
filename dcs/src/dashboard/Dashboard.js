@@ -7,6 +7,7 @@ import Footer from "../components/Footer"
 import Sidebar from "./Sidebar"
 import Topbar from "./Topbar"
 import Cards from "./Cards"
+import AddServer from "./AddServer"
 
 class Dashboard extends React.Component {
 
@@ -71,7 +72,11 @@ class Dashboard extends React.Component {
 
     if (this.state.data !== null) {
       let servers = this.state.data.map((d) => <li key={d._id} id={d._id} onClick={this.onServerClick} className="nav-item justify-content-between align-items-center px-2 mt-1 mb-1" style={{ cursor: "pointer" }}>{d.name}</li>)
+      let addServer = <li key="addServer" id="addServer" onClick={this.onServerClick} className="nav-item justify-content-between align-items-center px-2 mt-1 mb-1" style={{ cursor: "pointer" }}>+ Add Server</li>
+      servers.push(addServer)
       let serverData = this.state.data.map((d) => <Cards key={d._id} data={d} />)
+      let addServerCard = <AddServer key="addServer" />
+      serverData.push(addServerCard)
       return (
         <div>
           <Header />
