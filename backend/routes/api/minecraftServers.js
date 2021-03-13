@@ -87,7 +87,7 @@ router.post("/createServer", (req, res) => {
             })
             .catch(err => {
               console.log(err)  // remove in final production code? 
-              if (err.code === "ECONNABORTED") {
+              if (err.code === "ECONNABORTED" || err.code === "ECONNREFUSED") {
                 return res.status(503).json({ success: false, error: "Hosting provider is unavailable.  Try a different hosting provider."})
               }
               return res.status(400).json({ success: false, error: err })
@@ -120,7 +120,7 @@ router.post("/deleteServer", (req, res) => {
             })
             .catch(err => {
               console.log(err)  // remove in final production code? 
-              if (err.code === "ECONNABORTED") {
+              if (err.code === "ECONNABORTED" || err.code === "ECONNREFUSED") {
                 return res.status(503).json({ success: false, error: "Hosting provider is unavailable." })
               }
               return res.status(400).json({ success: false, error: err })

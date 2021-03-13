@@ -6,8 +6,18 @@ import axios from "axios"
 
 class Cards extends React.Component {
 
+  constructor() {
+    super()
+    this.state = {
+      confirmDelete: false
+    }
+  }
+
   deleteServer = e => {
     e.preventDefault()
+    this.setState({
+      confirmDelete: false
+    })
     const reqData = {
       user_id: this.props.user,
       server_id: this.props.data._id,
@@ -23,6 +33,20 @@ class Cards extends React.Component {
       })
   }
 
+  showConfirmMsg = e => {
+    e.preventDefault()
+    this.setState({
+      confirmDelete: true
+    })
+  }
+
+  hideConfirmMsg = e => {
+    e.preventDefault()
+    this.setState({
+      confirmDelete: false
+    })
+  }
+
   render() {
 
     // map data from props whilst ignoring promises
@@ -33,9 +57,19 @@ class Cards extends React.Component {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h3>{this.props.data.name}</h3>
           {
-            (this.props.user === this.props.data.owner) ? <button className="btn btn-danger" onClick={this.deleteServer}>Delete</button> : null
+            (this.props.user === this.props.data.owner) ? <button className="btn btn-danger" onClick={this.showConfirmMsg}>Delete</button> : null
           }
         </div>
+        {
+          (this.state.confirmDelete) ?
+            <div className="alert alert-dismissible alert-light">
+              <h4 className="alert-heading">Warning!</h4>
+              <p className="mb-0">Are you sure you want to permanently delete this minecraft server?</p>
+              <button className="btn btn-danger mr-1 mt-1 mb-1" onClick={this.hideConfirmMsg}>Cancel</button>
+              <button className="btn btn-outline-danger m-1" onClick={this.deleteServer}>Confirm</button>
+            </div> :
+            null
+        }
         <div className="row">
           <Card header="Status" text={this.props.data.status} bg={
             (this.props.data.status === "Online") ? "bg-success" : "bg-danger"
