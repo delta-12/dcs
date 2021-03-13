@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
       let servers = this.state.data.map((d) => <li key={d._id} id={d._id} onClick={this.onServerClick} className="nav-item justify-content-between align-items-center px-2 mt-1 mb-1" style={{ cursor: "pointer" }}>{d.name}</li>)
       let addServer = <li key="addServer" id="addServer" onClick={this.onServerClick} className="nav-item justify-content-between align-items-center px-2 mt-1 mb-1" style={{ cursor: "pointer" }}>+ Add Server</li>
       servers.push(addServer)
-      let serverData = this.state.data.map((d) => <Cards key={d._id} data={d} />)
+      let serverData = this.state.data.map((d) => <Cards key={d._id} data={d} user={this.props.auth.user.id}/>)
       let addServerCard = <AddServer key="addServer" />
       serverData.push(addServerCard)
       return (

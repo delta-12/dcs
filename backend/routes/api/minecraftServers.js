@@ -81,7 +81,7 @@ router.post("/createServer", (req, res) => {
             public: req.body.public
           }
           axios
-            .post("http://" + req.body.address + "/create_server", querystring.stringify(newServer), { timeout: 60000 })  // create stream to monitor progress of server creation?
+            .post("http://" + req.body.address + ":5001/create_server", querystring.stringify(newServer), { timeout: 60000 })  // create stream to monitor progress of server creation?
             .then(response => {
               return res.status(201).json({ success: true, response: response.data })
             })
@@ -92,6 +92,39 @@ router.post("/createServer", (req, res) => {
               }
               return res.status(400).json({ success: false, error: err })
           })
+        }
+      })
+    }
+  })
+})
+
+router.post("/deleteServer", (req, res) => {
+  User.findOne({ _id: req.body.user_id }).then(user => {
+    if (!user) {
+      return res.status(404).json({ UserIDNotFound: "No user ID found" })
+    }
+    else {
+      MinecraftServer.findOne({ _id: req.body.server_id }).then(server => {
+        if (!server) {
+          return res.status(404).json({ error: "No server found." })
+        }
+        else {
+          const delServer = {
+            user_id: req.body.user_id,
+            server_id: req.body.server_id
+          }
+          axios
+            .post("http://" + req.body.address + ":5001/delete_server", querystring.stringify(delServer))  // create stream to monitor progress of server creation?
+            .then(response => {
+              return res.status(200).json({ success: true, response: response.data })
+            })
+            .catch(err => {
+              console.log(err)  // remove in final production code? 
+              if (err.code === "ECONNABORTED") {
+                return res.status(503).json({ success: false, error: "Hosting provider is unavailable." })
+              }
+              return res.status(400).json({ success: false, error: err })
+            })
         }
       })
     }
