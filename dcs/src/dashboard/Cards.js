@@ -2,7 +2,7 @@ import React from "react"
 import Card from "./Card"
 import Charts from "./Charts"
 import TableRow from "./TableRow"
-import axios from "axios"
+import DeleteServer from "./DeleteServer"
 
 class Cards extends React.Component {
 
@@ -11,26 +11,6 @@ class Cards extends React.Component {
     this.state = {
       confirmDelete: false
     }
-  }
-
-  deleteServer = e => {
-    e.preventDefault()
-    this.setState({
-      confirmDelete: false
-    })
-    const reqData = {
-      user_id: this.props.user,
-      server_id: this.props.data._id,
-      address: this.props.data.address
-    }
-    axios
-      .post("/api/minecraftServers/deleteServer", reqData)
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
   }
 
   showConfirmMsg = e => {
@@ -66,7 +46,7 @@ class Cards extends React.Component {
               <h4 className="alert-heading">Warning!</h4>
               <p className="mb-0">Are you sure you want to permanently delete this minecraft server?</p>
               <button className="btn btn-danger mr-1 mt-1 mb-1" onClick={this.hideConfirmMsg}>Cancel</button>
-              <button className="btn btn-outline-danger m-1" onClick={this.deleteServer}>Confirm</button>
+              <DeleteServer user={this.props.user} server_id={this.props.data._id} address={this.props.data.address} />
             </div> :
             null
         }

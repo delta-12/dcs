@@ -26,3 +26,7 @@ input[type=range]::-ms-thumb {
     height: 115px;
   }
 }
+
+.alerts {
+  margin-top: 75px;
+}
