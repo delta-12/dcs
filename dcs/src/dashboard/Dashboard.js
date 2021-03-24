@@ -28,6 +28,8 @@ class Dashboard extends React.Component {
     this.getData()
   }
 
+  // can't perform state update on unmounted component
+  // cancel all subscriptions and async tasks
   componentWillUnmount() {
     clearTimeout(this.intervalID)
     window.addEventListener("resize", this.handleResize)

@@ -5,8 +5,8 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import axios from "axios"
 import { trackPromise } from "react-promise-tracker"
-import { LoadingIndicator } from "./LoadingIndicator"
-import AddServerResponse from "./AddServerResponse"
+import { LoadingIndicator } from "../components/LoadingIndicator"
+import ServerResponse from "../components/ServerResponse"
 
 class AddServer extends React.Component {
 
@@ -95,14 +95,14 @@ constructor() {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h3>Add New Minecraft Server</h3>
         </div>
-        <LoadingIndicator />
+        <LoadingIndicator text="Creating new server.  This may take some time."/>
         {
           (data !== undefined) ?
             (data.success !== undefined) ?
-              (data.success) ? <AddServerResponse color="mediumseagreen" text={data.response.status} /> :
-                (errors.error !== undefined) ? <AddServerResponse color="red" text={errors.error} /> : null :
-              (errors.error !== undefined) ? <AddServerResponse color="red" text={errors.error} /> : null :
-            (errors.error !== undefined) ? <AddServerResponse color="red" text={errors.error} /> : null
+              (data.success) ? <ServerResponse color="mediumseagreen" text={data.response.status} /> :
+                (errors.error !== undefined) ? <ServerResponse color="red" text={errors.error} /> : null :
+              (errors.error !== undefined) ? <ServerResponse color="red" text={errors.error} /> : null :
+            (errors.error !== undefined) ? <ServerResponse color="red" text={errors.error} /> : null
         }
         <form onSubmit={this.onSubmit}>
           <table className="table table-hover">

@@ -2,7 +2,7 @@ import React from "react"
 import { usePromiseTracker } from "react-promise-tracker"
 import Loader from "react-loader-spinner"
 
-export const LoadingIndicator = () => {
+export const LoadingIndicator = props => {
     const { promiseInProgress } = usePromiseTracker()
     const style = {
       height: 40,
@@ -19,7 +19,7 @@ export const LoadingIndicator = () => {
       promiseInProgress &&
       <div style={style}>
         <Loader type="Bars" width="100" height="20" color="white" />
-        <p>Creating new server.  This may take some time.</p>
+        <p>{props.text}</p>
       </div>
     )
 }

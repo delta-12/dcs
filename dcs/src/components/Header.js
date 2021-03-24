@@ -36,10 +36,6 @@ class TopNav extends React.Component {
     })
   }
 
-  onProfileClick = e => {
-    e.preventDefault()
-  }
-
   render() {
 
     const show = (this.state.menu) ? "show" : ""
@@ -59,7 +55,7 @@ class TopNav extends React.Component {
                   <Link style={{ textDecoration: "none" }} to="/dashboard"><button className="btn btn-outline-info">Dashboard</button></Link>
                 </div>
                 <div className="btn-group m-1">
-                  <button className="btn btn-outline-warning" onClick={this.onProfileClick}><i className="fas fa-user-circle"></i>{user.username}</button>
+                  <Link style={{ textDecoration: "none" }} to="/account"><button className="btn btn-outline-warning"><i className="fas fa-user-circle"></i>{user.username}</button></Link>
                 </div>
                 <div className="btn-group m-1">
                   <button className="btn btn-outline-danger" onClick={this.onLogoutClick}><i className="fas fa-sign-out-alt"></i>Logout</button>

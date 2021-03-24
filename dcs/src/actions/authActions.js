@@ -4,11 +4,14 @@ import jwt_decode from "jwt-decode"
 import {
   GET_ERRORS,
   SET_CURRENT_USER,
-  USER_LOADING
+  USER_LOADING,
+  USER_UPDATED
 } from "./types"
+import { trackPromise } from "react-promise-tracker"
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
+  // add promise tracker for registering new user
   axios
     .post("/api/users/register", userData)
     .then(res => history.push("/login")) // re-direct to login on successful register
@@ -27,7 +30,6 @@ export const loginUser = userData => dispatch => {
     .then(res => {
       // Save to localStorage
       // Set token to localStorage
-
       const { token } = res.data
       localStorage.setItem("jwtToken", token)
       // Set token to Auth header
@@ -58,6 +60,40 @@ export const setUserLoading = () => {
   return {
     type: USER_LOADING
   }
+}
+
+// Set logged in user
+export const updateCurrentUser = decoded => {
+  return {
+    type: USER_UPDATED,
+    payload: decoded
+  }
+}
+
+// Update User account info
+export const updateAccountInfo = userData => dispatch => {
+  trackPromise(
+    axios
+      .post("/api/users/updateAccountInfo", userData)
+      .then(res => {
+        // Save to localStorage
+        // Set token to localStorage
+        const { token } = res.data
+        localStorage.setItem("jwtToken", token)
+        // Set token to Auth header
+        setAuthToken(token)
+        // Decode token to get user data
+        const decoded = jwt_decode(token)
+        // Set current user
+        dispatch(updateCurrentUser(decoded))
+      })
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      )
+  )
 }
 
 // Log user out

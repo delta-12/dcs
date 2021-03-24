@@ -1,6 +1,6 @@
 import React from "react"
 
-export default class AddServerResponse extends React.Component {
+export default class ServerResponse extends React.Component {
   render() {
     const style = {
       height: 40,

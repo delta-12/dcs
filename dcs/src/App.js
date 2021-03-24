@@ -10,6 +10,7 @@ import PrivateRoute from "./components/private-route/PrivateRoute"
 import LandingPage from './pages/LandingPage'
 import Register from "./auth/Register"
 import Login from "./auth/Login"
+import Account from "./auth/Account"
 import Dashboard from "./dashboard/Dashboard"
 import TermsConditions from "./pages/TermsConditions"
 import Privacy from "./pages/Privacy"
@@ -49,6 +50,7 @@ class App extends React.Component {
             <Route exact path="/contact" component={Contact} />            
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/account" component={Account} />
             </Switch>
           </div>
         </Router>
