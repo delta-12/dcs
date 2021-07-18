@@ -9,4 +9,4 @@ const MCHostSchema = new Schema({
   }
 })
 
-module.exports = User = mongoose.model("mc_hosts", MCHostSchema)
+module.exports = MCHost = mongoose.model("mc_hosts", MCHostSchema)
