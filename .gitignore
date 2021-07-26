@@ -1,0 +1,14 @@
+#.gitignore
+
+/TODO.md
+
+backend/config/keys.js
+backend/node_modules
+
+dcs/node_modules
+dcs/build
+dcs/src/development
+dcs/src/styles/index.css
+
+docker/app/keys.js
+docker/nginx/files
