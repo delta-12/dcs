@@ -117,7 +117,6 @@ constructor() {
                 <option value="easy">Easy</option>
                 <option value="normal">Normal</option>
                 <option value="hard">Hard</option>
-                <option value="hardcore">Hardcore</option>
               </select>} />
               <TableRow title="Seed" data={<input type="text" className="form-control" onChange={this.onChange} value={this.state.seed} placeholder="Seed" id="seed"></input>} />
               <TableRow title="Software" data={<select className="form-control" onChange={this.onChange} value={this.state.software} id="software">
