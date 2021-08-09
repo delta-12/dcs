@@ -111,6 +111,8 @@ constructor() {
               <TableRow title="Game mode" data={<select className="form-control" onChange={this.onChange} value={this.state.gamemode} id="gamemode">
                 <option value="survival">Survival</option>
                 <option value="creative">Creative</option>
+                <option value="adventure">Adventure</option>
+                <option value="spectator">Spectator</option>
               </select>} />
               <TableRow title="Difficulty" data={<select className="form-control" onChange={this.onChange} value={this.state.difficulty} id="difficulty">
                 <option value="peaceful">Peaceful</option>
