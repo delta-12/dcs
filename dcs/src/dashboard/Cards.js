@@ -61,12 +61,8 @@ class Cards extends React.Component {
             bg="bg-light"
           />
           <Card header="Gamemode" text={this.props.data.gamemode}
-            title={
-              (this.props.data.gamemode === "survival") ? "Difficulty" : null
-            }
-            subtext={
-              (this.props.data.gamemode === "survival") ? this.props.data.difficulty : null
-            }
+            title="Difficulty"
+            subtext={this.props.data.difficulty}
             bg="bg-warning"
           />
         </div>
