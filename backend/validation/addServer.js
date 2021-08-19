@@ -18,14 +18,22 @@ module.exports = function validateRegisterInput(data) {
     errors.name = "Name can only contain letters and numbers."
   }
   if (!Validator.isEmpty(data.difficulty)) {
-    if (data.difficulty !== "peaceful" || data.difficulty !== "easy" || data.difficulty !== "normal" || data.difficulty !== "hard") {
-      errors.difficulty = "Unknown difficulty."
-    }
+    (data.difficulty !== "peaceful") ?
+      (data.difficulty !== "easy") ? 
+        (data.difficulty !== "normal") ?
+          (data.difficulty !== "hard") ? errors.difficulty = "Unknown difficulty." : null
+        : null
+      : null
+    : null
   }
   if (!Validator.isEmpty(data.gamemode)) {
-    if (data.gamemode !== "survival" || data.gamemode !== "creative" || data.gamemode !== "adventure" || data.gamemode !== "spectatorgamemode") {
-      errors.gamemode = "Unknown gamemode."
-    }
+    (data.gamemode !== "survival") ?
+      (data.gamemode !== "creative") ? 
+        (data.gamemode !== "adventure") ?
+          (data.gamemode !== "spectator") ? errors.gamemode = "Unknown gamemode." : null
+        : null
+      : null
+    : null
   }
 
   return {
