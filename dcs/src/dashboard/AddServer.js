@@ -19,7 +19,7 @@ constructor() {
       difficulty: "peaceful",
       seed: "",
       software: "Java",
-      version: "16.5",
+      version: "1.17.1",
       public: true,
       data: {},
       hosts: null,
