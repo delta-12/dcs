@@ -125,7 +125,7 @@ constructor() {
                 <option value="Java">Java</option>
               </select>} />
               <TableRow title="Version" data={<select className="form-control" onChange={this.onChange} value={this.state.version} id="version">
-                <option value="16.5">16.5</option>
+                <option value="1.17.1">1.17.1</option>
               </select>} />
               <TableRow title="Visibility" data={<select className="form-control" onChange={this.onChange} id="public">
                 <option value={true}>Public</option>
