@@ -7,7 +7,7 @@ backend/node_modules
 backend/package-lock.json
 
 dcs/node_modules
-dcs/package-lock.json
+#dcs/package-lock.json
 dcs/build
 dcs/src/development
 dcs/src/styles/index.css
